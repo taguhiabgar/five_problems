@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <ctime> 
+#include <string>
 
 using namespace std;
 
@@ -22,10 +23,79 @@ int sumWithRecursion(vector<int>);
 void problem2();
 vector<char> combine(vector<char>, vector<char>);
 
+// problem 3
+void problem3();
+vector<string> fibonacciNumbers(int);
+string add(string, string);
+
 int main(int argc, const char * argv[]) {
 //    problem1();
-    problem2();
+//    problem2();
+    problem3();
     return 0;
+}
+
+// problem 3
+
+void problem3() {
+    // Write a function that computes the list of the first 100 Fibonacci numbers. By definition, the first two numbers in the Fibonacci sequence are 0 and 1, and each subsequent number is the sum of the previous two. As an example, here are the first 10 Fibonnaci numbers: 0, 1, 1, 2, 3, 5, 8, 13, 21, and 34.
+    
+    vector<string> numbers = fibonacciNumbers(100);
+    for (int i = 0; i < numbers.size(); i++) {
+        cout << numbers[i] << ' ';
+    }
+    cout << endl;
+}
+
+vector<string> fibonacciNumbers(int count) {
+    vector<string> numbers = {"0", "1"};
+    
+    for (unsigned long i = numbers.size(); i <= count; i++) {
+        numbers.push_back(add(numbers[i - 1], numbers[i - 2]));
+    }
+    return numbers;
+}
+
+string add(string num1, string num2) {
+    string result = "";
+    if (num1.size() != num2.size()) {
+        if (num1.size() < num2.size()) {
+            for(unsigned long i = num1.size(); i < num2.size(); i++) {
+                num1 = "0" + num1;
+            }
+        } else {
+            for(unsigned long i = num2.size(); i < num1.size(); i++) {
+                num2 = "0" + num2;
+            }
+        }
+    } else {
+        num1 = "0" + num1;
+        num2 = "0" + num2;
+    }
+    
+    int toAdd = 0;
+    for(long i = num1.size() - 1; i >= 0; i--) {
+        char c = '0' + toAdd + (num1[i] - '0') + (num2[i] - '0');
+        if (c > '9') {
+            c -= 10;
+            toAdd = 1;
+        } else {
+            toAdd = 0;
+        }
+        result = c + result;
+    }
+    
+    // clean zeroes
+    string cleanResult = "";
+    bool start = false;
+    for(int i = 0; i < result.size(); i++) {
+        if (!(!start && result[i] == '0')) {
+            start = true;
+            cleanResult += result[i];
+        }
+    }
+    
+    return cleanResult;
 }
 
 // problem 2
