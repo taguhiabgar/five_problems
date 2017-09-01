@@ -10,6 +10,7 @@
 #include <vector>
 #include <ctime> 
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -28,11 +29,35 @@ void problem3();
 vector<string> fibonacciNumbers(int);
 string add(string, string);
 
+// problem 4
+void problem4();
+bool notUsualCompareForMinimum(int first, int second);
+
 int main(int argc, const char * argv[]) {
 //    problem1();
 //    problem2();
-    problem3();
+//    problem3();
+    problem4();
     return 0;
+}
+
+// problem 4
+
+void problem4() {
+    // Write a function that given a list of non negative integers, arranges them such that they form the largest possible number. For example, given [50, 2, 1, 9], the largest formed number is 95021.
+    vector<int> numbers = {50, 2, 1, 9};
+    sort(numbers.begin(), numbers.end(), notUsualCompareForMinimum);
+    reverse(numbers.begin(), numbers.end());
+    for(int i = 0; i < numbers.size(); i++) {
+        cout << numbers[i];
+    }
+    cout << endl;
+}
+
+bool notUsualCompareForMinimum(int first, int second) {
+    string f = to_string(first);
+    string s = to_string(second);
+    return f < s;
 }
 
 // problem 3
