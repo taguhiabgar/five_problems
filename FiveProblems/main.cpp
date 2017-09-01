@@ -18,9 +18,44 @@ int sumWithForLoop(vector<int>);
 int sumWithWhileLoop(vector<int>);
 int sumWithRecursion(vector<int>);
 
+// problem 2
+void problem2();
+vector<char> combine(vector<char>, vector<char>);
+
 int main(int argc, const char * argv[]) {
-    problem1();
+//    problem1();
+    problem2();
     return 0;
+}
+
+// problem 2
+
+void problem2() {
+    // Write a function that combines two lists by alternatingly taking elements. For example: given the two lists [a, b, c] and [1, 2, 3], the function should return [a, 1, b, 2, c, 3].
+    
+    vector<char> first = {'a', 'b', 'c'};
+    vector<char> second = {'1', '2', '3'};
+    vector<char> combined = combine(first, second);
+    for (int i = 0; i < combined.size(); i++) {
+        cout << combined[i] << ' ';
+    }
+    cout << endl;
+}
+
+vector<char> combine(vector<char> first, vector<char> second) {
+    vector<char> result;
+    int flag1 = 0, flag2 = 0;
+    while(result.size() < first.size() + second.size()) {
+        if (flag1 < first.size()) {
+            result.push_back(first[flag1]);
+            flag1++;
+        }
+        if (flag2 < second.size()) {
+            result.push_back(second[flag2]);
+            flag2++;
+        }
+    }
+    return result;
 }
 
 // problem 1
